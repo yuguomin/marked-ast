@@ -1,0 +1,21 @@
+{
+  "name": "marked-ast",
+  "version": "1.0.0",
+  "description": "A modified version of pdubroy/marked-ast that can produce an abstract syntax tree for Markdown",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuguomin/marked-ast.git"
+  },
+  "scripts": {
+    "start": "ts-node ./examples",
+    "test": "ts-node ./test",
+    "dev": "tsc -w",
+    "build": "rm -rf ./dist && tsc"
+  },
+  "main": "index.js",
+  "author": "YGM",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^10.5.6"
+  }
+}

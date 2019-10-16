@@ -15,7 +15,11 @@
   "main": "index.js",
   "author": "YGM",
   "license": "MIT",
+  "dependencies": {
+    "marked": "0.3.3"
+  },
   "devDependencies": {
-    "@types/node": "^10.5.6"
+    "@types/node": "^10.5.6",
+    "@types/marked": "^0.6.5"
   }
 }

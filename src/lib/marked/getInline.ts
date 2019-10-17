@@ -1,5 +1,6 @@
 import merge from '../../helpers/merge';
 import replace from '../../helpers/replace';
+import { noop } from './common';
 
 
 interface IInline {
@@ -107,6 +108,3 @@ export const getInline = () => {
 
   return inline;
 }
-
-const noop = () => { };
-noop.exec = noop;

@@ -1,11 +1,12 @@
 import { Renderer } from './Renderer';
 import { InlineLexer } from './InlineLexer';
+import { defaultOptions } from './common';
 
 export default class Parser {
   constructor(options, renderer?) {
     this.tokens = [];
     this.token = null;
-    // this.options = options || marked.defaults;
+    this.options = options || defaultOptions;
     this.options = options;
     this.options.renderer = this.options.renderer || new Renderer;
     this.options.renderer = this.options.renderer;

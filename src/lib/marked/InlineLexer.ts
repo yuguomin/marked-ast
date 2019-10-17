@@ -1,10 +1,11 @@
 import { Renderer } from './Renderer';
 import { getInline } from './getInline';
 import escape from '../../helpers/escape';
+import { defaultOptions } from './common';
 
 export class InlineLexer {
   constructor(links, options, renderer?) {
-    // this.options = options || marked.defaults;
+    this.options = options || defaultOptions;
     this.options = options;
     this.links = links;
     this.rules = this.inline.normal;

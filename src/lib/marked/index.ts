@@ -1,6 +1,8 @@
 import merge from '../../helpers/merge';
-import escape from 'src/helpers/escape';
+import escape from '../../helpers/escape';
 import Parser from './Parser';
+import { Lexer } from 'marked';
+import { defaultOptions } from './common';
 
 class Marked {
   constructor(src, opt, callback) {
@@ -23,7 +25,7 @@ class Marked {
         this.opt = null;
       }
 
-      this.opt = merge({}, [Marked.defaults, this.opt || {}]);
+      this.opt = merge({}, [defaultOptions, this.opt || {}]);
 
       this.highlight = this.opt.highlight;
       this.tokens;
@@ -65,11 +67,11 @@ class Marked {
       return;
     }
     try {
-      if (this.opt) this.opt = merge({}, [Marked.defaults, this.opt]);
+      if (this.opt) this.opt = merge({}, [defaultOptions, this.opt]);
       return Parser.parse(Lexer.lex(this.src, this.opt), this.opt);
     } catch (e) {
       e.message += '\nPlease report this to www';
-      if ((this.opt || Marked.defaults).silent) {
+      if ((this.opt || defaultOptions).silent) {
         return '<p>An error occured:</p><pre>'
           + escape(e.message + '', true)
           + '</pre>';
@@ -79,24 +81,8 @@ class Marked {
   }
 
   static setOptions = (opt) => {
-    merge(Marked.defaults, opt);
+    merge(defaultOptions, opt);
     return marked;
-  }
-
-  static defaults = {
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
-    smartLists: false,
-    silent: false,
-    highlight: null,
-    langPrefix: 'lang-',
-    smartypants: false,
-    headerPrefix: '',
-    // renderer: new Renderer,
-    xhtml: false
   }
 
   private done = (err?) => {

@@ -5,25 +5,27 @@
  * 3. AST to HTML
  */
 
-import marked, { MarkedOptions } from 'marked';
+import { parse as MD2HTML, MarkedOptions } from 'marked';
+import { MD2AST } from './MD2AST';
+import { AST2HTML } from './AST2HTML';
 
 interface IMDTool {
-  MD2AST: number;
+  MD2AST: any;
   MD2HTML: (src: string, options?: MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void) => string;
-  AST2HTML: number;
+  AST2HTML: any;
 }
 
 
 export const MDTool: IMDTool = {
-  MD2AST: 1,
-  MD2HTML: marked.parse,
-  AST2HTML: 2
+  MD2AST,
+  MD2HTML,
+  AST2HTML
 };
 
- console.log(MDTool.MD2HTML(`
- #### detail
+MDTool.MD2AST(`
+#### detail
 
 | 类别 | 详情1 | 第三个 |
 | -- | ---- | --- |
 | request-method | GET | x |
-| request-url | /pb/card/list | s |`))
+| request-url | /pb/card/list | s |`);

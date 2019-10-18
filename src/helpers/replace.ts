@@ -1,11 +1,12 @@
-const replace = (regex, opt = '') => {
-  regex = regex.source;
-  opt = opt;
-  return function self(name?, val?) {
-    if (!name) return new RegExp(regex, opt);
-    val = val.source || val;
-    val = val.replace(/(^|[^\[])\^/g, '$1');
-    regex = regex.replace(name, val);
+const replace = (regex: RegExp, opt = '') => {
+  let regexSource = regex.source;
+  return function self(name?: RegExp | string, val?: RegExp | string) {
+    if (!name) return new RegExp(regexSource, opt);
+    if (typeof val === 'object') {
+      val = val.source;
+    }
+    val = val ? val.replace(/(^|[^\[])\^/g, '$1') : '';
+    regexSource = regexSource.replace(name, val);
     return self;
   };
 }

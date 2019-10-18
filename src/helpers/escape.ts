@@ -1,6 +1,6 @@
-const escape = (html, encode?) => {
+const escape = (html: string, isEncode?: boolean) => {
   return html
-    .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+    .replace(!isEncode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')

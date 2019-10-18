@@ -1,7 +1,7 @@
 import { Renderer } from './Renderer';
-import { getInline } from './getInline';
+import { getInline } from './common/getInline';
 import escape from '../../helpers/escape';
-import { defaultOptions } from './common';
+import { defaultOptions } from './common/defaultOptions';
 
 export class InlineLexer {
   constructor(links, options, renderer?) {
@@ -38,16 +38,16 @@ export class InlineLexer {
   static rules = getInline();
 
   static output = (src, links, options) => {
-    var inline = new InlineLexer(links, options);
+    const inline = new InlineLexer(links, options);
     return inline.output(src);
   }
 
   public output = (src) => {
-    var out = this.renderer.newSequence()
-      , link
-      , text
-      , href
-      , cap;
+    let out = this.renderer.newSequence()
+    let link;
+    let text;
+    let href;
+    let cap;
 
     while (src) {
       // escape
@@ -177,8 +177,8 @@ export class InlineLexer {
   }
 
   outputLink = (cap, link) => {
-    var href = escape(link.href)
-      , title = link.title ? escape(link.title) : null;
+    const href = escape(link.href)
+    const title = link.title ? escape(link.title) : null;
 
     return cap[0].charAt(0) !== '!'
       ? this.renderer.link(href, title, this.output(cap[1]))
@@ -186,19 +186,17 @@ export class InlineLexer {
   }
 
   public mangle = (text) => {
-    var out = ''
-      , l = text.length
-      , i = 0
-      , ch;
+    let out = '';
+    let l = text.length;
+    let ch;
 
-    for (; i < l; i++) {
+    for (let i = 0; i < l; i++) {
       ch = text.charCodeAt(i);
       if (Math.random() > 0.5) {
         ch = 'x' + ch.toString(16);
       }
       out += '&#' + ch + ';';
     }
-
     return out;
   }
 

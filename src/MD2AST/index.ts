@@ -6,11 +6,3 @@ export const MD2AST = (text) => {
     renderer: new AstBuilder() as any
   });
 }
-
-console.log(MD2AST(`
-#### detail
-
-| 类别 | 详情1 | 第三个 |
-| -- | ---- | --- |
-| request-method | GET | x |
-| request-url | /pb/card/list | s |`));

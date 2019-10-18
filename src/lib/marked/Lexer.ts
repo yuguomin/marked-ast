@@ -1,5 +1,5 @@
-import getBlock from './getBlock';
-import { defaultOptions } from './common';
+import getBlock from './common/getBlock';
+import { defaultOptions } from './common/defaultOptions';
 
 export default class Lexer {
   constructor(options) {
@@ -25,7 +25,7 @@ export default class Lexer {
 
   static rules = getBlock();
   static lex = (src, options) => {
-    var lexer = new Lexer(options);
+    const lexer = new Lexer(options);
     return lexer.lex(src);
   }
 
@@ -40,16 +40,16 @@ export default class Lexer {
   };
 
   public token = (src, top, bq?) => {
-    var src = src.replace(/^ +$/gm, '')
-      , next
-      , loose
-      , cap
-      , bull
-      , b
-      , item
-      , space
-      , i
-      , l;
+    src = src.replace(/^ +$/gm, '');
+    let next;
+    let loose;
+    let cap;
+    let bull;
+    let b;
+    let item;
+    let space;
+    let i;
+    let l;
     while (src) {
       // newline
       if (cap = this.rules.newline.exec(src)) {

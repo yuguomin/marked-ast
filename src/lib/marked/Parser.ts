@@ -1,6 +1,6 @@
 import { Renderer } from './Renderer';
 import { InlineLexer } from './InlineLexer';
-import { defaultOptions } from './common';
+import { defaultOptions } from './common/defaultOptions';
 
 export default class Parser {
   constructor(options, renderer?) {
@@ -14,7 +14,7 @@ export default class Parser {
   }
 
   static parse = (src, options, renderer?) => {
-    var parser = new Parser(options, renderer);
+    const parser = new Parser(options, renderer);
     return parser.parse(src);
   }
 
@@ -28,7 +28,7 @@ export default class Parser {
     this.inline = new InlineLexer(src.links, this.options, this.renderer);
     this.tokens = src.reverse();
 
-    var out = this.renderer.newSequence();
+    let out = this.renderer.newSequence();
     while (this.next()) {
       out = out.concat(this.tok());
     }
@@ -45,7 +45,7 @@ export default class Parser {
   }
 
   public parseText = () => {
-    var body = this.token.text;
+    let body = this.token.text;
 
     while (this.peek().type === 'text') {
       body = body.concat('\n' + this.next().text);
@@ -75,42 +75,60 @@ export default class Parser {
           !!this.token.fenced);
       }
       case 'table': {
-        var header = this.renderer.newSequence()
-          , body = this.renderer.newSequence()
-          , i
-          , row
-          , cell
-          , flags
-          , j;
+        let header = this.renderer.newSequence()
+        let body = this.renderer.newSequence();
+        // let i;
+        let row;
+        let cell;
+        let flags;
 
         // header
         cell = this.renderer.newSequence();
-        for (i = 0; i < this.token.header.length; i++) {
-          flags = { header: true, align: this.token.align[i] };
+        // for (i = 0; i < this.token.header.length; i++) {
+        //   flags = { header: true, align: this.token.align[i] };
+        //   cell = cell.concat(this.renderer.tablecell(
+        //     this.inline.output(this.token.header[i]),
+        //     { header: true, align: this.token.align[i] }
+        //   ));
+        // }
+        this.token.header.forEach((value, index) => {
+          flags = { header: true, align: this.token.align[index] };
           cell = cell.concat(this.renderer.tablecell(
-            this.inline.output(this.token.header[i]),
-            { header: true, align: this.token.align[i] }
+            this.inline.output(value),
+            { header: true, align: this.token.align[index] }
           ));
-        }
+        })
+
         header = header.concat(this.renderer.tablerow(cell));
 
-        for (i = 0; i < this.token.cells.length; i++) {
-          row = this.token.cells[i];
+        // for (i = 0; i < this.token.cells.length; i++) {
+        //   row = this.token.cells[i];
 
+        //   cell = this.renderer.newSequence();
+        //   for (j = 0; j < row.length; j++) {
+        //     cell = cell.concat(this.renderer.tablecell(
+        //       this.inline.output(row[j]),
+        //       { header: false, align: this.token.align[j] }
+        //     ));
+        //   }
+
+        //   body = body.concat(this.renderer.tablerow(cell));
+        // }
+        this.token.cells.forEach((value) => {
+          row = value;
           cell = this.renderer.newSequence();
-          for (j = 0; j < row.length; j++) {
+          for (let j = 0; j < row.length; j++) {
             cell = cell.concat(this.renderer.tablecell(
               this.inline.output(row[j]),
               { header: false, align: this.token.align[j] }
             ));
           }
-
           body = body.concat(this.renderer.tablerow(cell));
-        }
+        })
         return this.renderer.table(header, body);
       }
       case 'blockquote_start': {
-        var body = this.renderer.newSequence();
+        let body = this.renderer.newSequence();
 
         while (this.next().type !== 'blockquote_end') {
           body = body.concat(this.tok());
@@ -119,7 +137,7 @@ export default class Parser {
         return this.renderer.blockquote(body);
       }
       case 'list_start': {
-        var body = this.renderer.newSequence()
+        let body = this.renderer.newSequence()
           , ordered = this.token.ordered;
 
         while (this.next().type !== 'list_end') {
@@ -129,7 +147,7 @@ export default class Parser {
         return this.renderer.list(body, ordered);
       }
       case 'list_item_start': {
-        var body = this.renderer.newSequence();
+        let body = this.renderer.newSequence();
 
         while (this.next().type !== 'list_item_end') {
           body = body.concat(this.token.type === 'text'
@@ -140,7 +158,7 @@ export default class Parser {
         return this.renderer.listitem(body);
       }
       case 'loose_item_start': {
-        var body = this.renderer.newSequence();
+        let body = this.renderer.newSequence();
 
         while (this.next().type !== 'list_item_end') {
           body = body.concat(this.tok());
@@ -149,7 +167,7 @@ export default class Parser {
         return this.renderer.listitem(body);
       }
       case 'html': {
-        var html = !this.token.pre && !this.options.pedantic
+        let html = !this.token.pre && !this.options.pedantic
           ? this.inline.output(this.token.text)
           : this.token.text;
         return this.renderer.html(html);

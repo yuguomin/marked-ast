@@ -2,14 +2,14 @@ import escape from '../../helpers/escape';
 
 export class Renderer {
   constructor(options = {}) {
-    this.options = options || {};
+    this.options = options;
   }
 
   private options;
 
   public code = (code, lang, escaped, fenced) => {
     if (this.options.highlight) {
-      var out = this.options.highlight(code, lang);
+      let out = this.options.highlight(code, lang);
       if (out != null && out !== code) {
         escaped = true;
         code = out;
@@ -56,7 +56,7 @@ export class Renderer {
   };
 
   public list = (body, ordered) => {
-    var type = ordered ? 'ol' : 'ul';
+    let type = ordered ? 'ol' : 'ul';
     return '<' + type + '>\n' + body + '</' + type + '>\n';
   };
 
@@ -84,8 +84,8 @@ export class Renderer {
   };
 
   public tablecell = (content, flags) => {
-    var type = flags.header ? 'th' : 'td';
-    var tag = flags.align
+    let type = flags.header ? 'th' : 'td';
+    let tag = flags.align
       ? '<' + type + ' style="text-align:' + flags.align + '">'
       : '<' + type + '>';
     return tag + content + '</' + type + '>\n';
@@ -114,8 +114,9 @@ export class Renderer {
 
   public link = (href, title, text) => {
     if (this.options.sanitize) {
+      let prot;
       try {
-        var prot = decodeURIComponent(unescape(href))
+        prot = decodeURIComponent(unescape(href))
           .replace(/[^\w:]/g, '')
           .toLowerCase();
       } catch (e) {
@@ -125,7 +126,7 @@ export class Renderer {
         return '';
       }
     }
-    var out = '<a href="' + href + '"';
+    let out = '<a href="' + href + '"';
     if (title) {
       out = out.concat(' title="' + title + '"');
     }
@@ -134,11 +135,15 @@ export class Renderer {
   };
 
   public image = (href, title, text) => {
-    var out = '<img src="' + href + '" alt="' + text + '"';
+    let out = '<img src="' + href + '" alt="' + text + '"';
     if (title) {
       out = out.concat(' title="' + title + '"');
     }
     out = out.concat(this.options.xhtml ? '/>' : '>');
     return out;
   }
+
+  public newSequence = () => {
+    return '';
+  };
 }

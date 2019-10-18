@@ -1,36 +1,34 @@
 import merge from '../../helpers/merge';
 import escape from '../../helpers/escape';
 import Parser from './Parser';
-import { Lexer } from 'marked';
-import { defaultOptions } from './common';
+import Lexer from './Lexer';
+import { defaultOptions, IOptions } from './common/defaultOptions';
 
 class Marked {
-  constructor(src, opt?, callback?) {
+  constructor(src: string, opt: IOptions = {}, callback?) {
     this.src = src;
     this.opt = opt;
     this.callback = callback;
-    return this.marked();
   }
 
-  private src;
-  private opt;
+  private src: string;
+  private opt: IOptions | null;
   private callback;
   private highlight;
   private tokens;
 
-  private marked = () => {
+  public marked = () => {
     if (this.callback || typeof this.opt === 'function') {
       if (!this.callback) {
         this.callback = this.opt;
-        this.opt = null;
+        this.opt = {};
       }
 
       this.opt = merge({}, [defaultOptions, this.opt || {}]);
+      this.opt = this.opt || {};
 
       this.highlight = this.opt.highlight;
       this.tokens;
-      let pending
-      let i = 0;
 
       try {
         this.tokens = Lexer.lex(this.src, this.opt)
@@ -38,7 +36,7 @@ class Marked {
         return this.callback(e);
       }
 
-      pending = this.tokens.length;
+      let pending = this.tokens.length;
 
       if (!this.highlight || this.highlight.length < 3) {
         return this.done();
@@ -46,14 +44,29 @@ class Marked {
 
       delete this.opt.highlight;
 
-      if (!pending) return this.done();
+      if (!pending) { return this.done() };
 
-      for (; i < this.tokens.length; i++) {
-        ((token) => {
+      // for (let i = 0; i < this.tokens.length; i++) {
+      //   ((token) => {
+      //     if (token.type !== 'code') {
+      //       return --pending || this.done();
+      //     }
+      //     return this.highlight(token.text, token.lang, (err, code) => {
+      //       if (err) return this.done(err);
+      //       if (code == null || code === token.text) {
+      //         return --pending || this.done();
+      //       }
+      //       token.text = code;
+      //       token.escaped = true;
+      //       --pending || this.done();
+      //     });
+      //   })(this.tokens[i]);
+      // }
+      this.tokens.forEach((token) => {
           if (token.type !== 'code') {
             return --pending || this.done();
           }
-          return this.highlight(token.text, token.lang,  (err, code) => {
+          return this.highlight(token.text, token.lang, (err, code) => {
             if (err) return this.done(err);
             if (code == null || code === token.text) {
               return --pending || this.done();
@@ -62,12 +75,13 @@ class Marked {
             token.escaped = true;
             --pending || this.done();
           });
-        })(this.tokens[i]);
-      }
+        }
+      );
+
       return;
     }
     try {
-      if (this.opt) {this.opt = merge({}, [defaultOptions, this.opt])};
+      if (this.opt) { this.opt = merge({}, [defaultOptions, this.opt]) };
       return Parser.parse(Lexer.lex(this.src, this.opt), this.opt);
     } catch (e) {
       e.message += '\nPlease report this to www';
@@ -86,6 +100,7 @@ class Marked {
   }
 
   private done = (err?) => {
+    this.opt = null || {};
     if (err) {
       this.opt.highlight = this.highlight;
       return this.callback(err);
@@ -105,7 +120,7 @@ class Marked {
 
 
 const marked = (src, opt?, callback?) => {
-  return new Marked(src, opt, callback);
+  return new Marked(src, opt, callback).marked();
 };
 
 export default marked;

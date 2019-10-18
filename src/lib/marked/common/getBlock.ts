@@ -1,19 +1,20 @@
-import { Noop } from './common';
-import merge from 'src/helpers/merge';
+import regExpNoop from './regExpNoop';
+import merge from '../../../helpers/merge';
+import replace from '../../../helpers/replace';
 
 interface IBlock {
   newline: RegExp;
   code: RegExp;
-  fences: Noop;
+  fences: regExpNoop;
   hr: RegExp;
   heading: RegExp;
-  nptable: Noop;
+  nptable: regExpNoop;
   lheading: RegExp;
   blockquote: RegExp;
   list: RegExp;
   html: RegExp;
   def: RegExp;
-  table: Noop;
+  table: regExpNoop;
   paragraph: RegExp;
   text: RegExp;
   bullet: RegExp | null;
@@ -31,16 +32,16 @@ export const getBlock = () => {
   const block: IBlock = {
     newline: /^\n+/,
     code: /^( {4}[^\n]+\n*)+/,
-    fences: Noop,
+    fences: regExpNoop,
     hr: /^( *[-*_]){3,} *(?:\n+|$)/,
     heading: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,
-    nptable: Noop,
+    nptable: regExpNoop,
     lheading: /^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
     list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
     html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
-    table: Noop,
+    table: regExpNoop,
     paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,
     text: /^[^\n]+/,
     bullet: null,

@@ -1,7 +1,8 @@
 import { Renderer } from './Renderer';
 
-export const noop = () => { };
-noop.exec = noop;
+export class Noop {
+  static exec = Noop;
+};
 
 export const defaultOptions = {
   gfm: true,

@@ -6,7 +6,6 @@ export default class Lexer {
     this.tokens = [];
     this.tokens.links = {};
     this.options = options || defaultOptions;
-    this.options = options;
     this.rules = this.block.normal;
 
     if (this.options.gfm) {

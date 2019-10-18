@@ -6,7 +6,6 @@ import { defaultOptions } from './common';
 export class InlineLexer {
   constructor(links, options, renderer?) {
     this.options = options || defaultOptions;
-    this.options = options;
     this.links = links;
     this.rules = this.inline.normal;
     this.renderer = this.options.renderer || new Renderer;

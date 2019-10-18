@@ -1,5 +1,5 @@
 export default function merge(obj, copyArr) {
-  let i = 1
+  let i = 0
     , target
     , key;
 
@@ -11,6 +11,5 @@ export default function merge(obj, copyArr) {
       }
     }
   }
-
   return obj;
 }

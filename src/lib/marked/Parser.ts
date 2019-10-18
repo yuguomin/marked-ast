@@ -7,7 +7,6 @@ export default class Parser {
     this.tokens = [];
     this.token = null;
     this.options = options || defaultOptions;
-    this.options = options;
     this.options.renderer = this.options.renderer || new Renderer;
     this.options.renderer = this.options.renderer;
     this.renderer = this.options.renderer;

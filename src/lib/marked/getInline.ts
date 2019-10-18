@@ -1,12 +1,12 @@
 import merge from '../../helpers/merge';
 import replace from '../../helpers/replace';
-import { noop } from './common';
+import { Noop } from './common';
 
 
 interface IInline {
   escape: RegExp;
   autolink: RegExp;
-  url: () => void;
+  url: Noop;
   tag: RegExp;
   link: RegExp;
   reflink: RegExp;
@@ -15,7 +15,7 @@ interface IInline {
   em: RegExp;
   code: RegExp;
   br: RegExp;
-  del: () => void;
+  del: Noop;
   text: RegExp;
   _inside: RegExp | null;
   _href: RegExp | null;
@@ -32,7 +32,7 @@ export const getInline = () => {
   const inline: IInline = {
     escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
     autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
-    url: noop,
+    url: Noop,
     tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
     link: /^!?\[(inside)\]\(href\)/,
     reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
@@ -41,7 +41,7 @@ export const getInline = () => {
     em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
     code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
     br: /^ {2,}\n(?!\s*$)/,
-    del: noop,
+    del: Noop,
     text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/,
     _inside: null,
     _href: null,
@@ -69,7 +69,7 @@ export const getInline = () => {
    * Normal Inline Grammar
    */
 
-  inline.normal = merge({}, inline);
+  inline.normal = merge({}, [inline]);
 
   /**
    * Pedantic Inline Grammar

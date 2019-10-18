@@ -5,7 +5,7 @@ import { Lexer } from 'marked';
 import { defaultOptions } from './common';
 
 class Marked {
-  constructor(src, opt, callback) {
+  constructor(src, opt?, callback?) {
     this.src = src;
     this.opt = opt;
     this.callback = callback;
@@ -67,7 +67,7 @@ class Marked {
       return;
     }
     try {
-      if (this.opt) this.opt = merge({}, [defaultOptions, this.opt]);
+      if (this.opt) {this.opt = merge({}, [defaultOptions, this.opt])};
       return Parser.parse(Lexer.lex(this.src, this.opt), this.opt);
     } catch (e) {
       e.message += '\nPlease report this to www';
@@ -104,6 +104,8 @@ class Marked {
 }
 
 
-export const marked = (src, opt, callback) => {
+const marked = (src, opt?, callback?) => {
   return new Marked(src, opt, callback);
 };
+
+export default marked;

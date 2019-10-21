@@ -16,7 +16,7 @@
   "author": "YGM",
   "license": "MIT",
   "dependencies": {
-    "marked": "0.3.3"
+    "marked": "0.3.18"
   },
   "devDependencies": {
     "@types/node": "^10.5.6",

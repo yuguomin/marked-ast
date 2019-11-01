@@ -101,19 +101,6 @@ export default class Parser {
 
         header = header.concat(this.renderer.tablerow(cell));
 
-        // for (i = 0; i < this.token.cells.length; i++) {
-        //   row = this.token.cells[i];
-
-        //   cell = this.renderer.newSequence();
-        //   for (j = 0; j < row.length; j++) {
-        //     cell = cell.concat(this.renderer.tablecell(
-        //       this.inline.output(row[j]),
-        //       { header: false, align: this.token.align[j] }
-        //     ));
-        //   }
-
-        //   body = body.concat(this.renderer.tablerow(cell));
-        // }
         this.token.cells.forEach((value) => {
           row = value;
           cell = this.renderer.newSequence();

@@ -1,8 +1,8 @@
-import marked from '../lib/marked/index';
 import { AstBuilder } from './AstBuilder';
+import Marked from '../lib/marked/index';
 
 export const MD2AST = (text) => {
-  return marked(text, {
+  return new Marked(text, {
     renderer: new AstBuilder() as any
-  });
+  }).marked();
 }

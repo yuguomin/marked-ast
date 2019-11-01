@@ -1,34 +1,15 @@
+import handlerArgs from '../lib/marked/common/handlerArgs';
+
 export class AstBuilder {
   constructor() {
-    for (var key in this.handlerArgs) {
-      AstBuilder.prototype[key] = this.makeHandler(key, this.handlerArgs[key]);
+    for (var key in handlerArgs) {
+      AstBuilder.prototype[key] = this.makeHandler(key, handlerArgs[key]);
     }
   }
 
   public newSequence = () => {
     return [];
   }
-
-  private handlerArgs = {
-    code: ['code', 'lang', 'escaped', 'fenced'],
-    blockquote: ['quote'],
-    html: ['html'],
-    heading: ['text', 'level', 'raw'],
-    hr: [],
-    list: ['body', 'ordered'],
-    listitem: ['text'],
-    paragraph: ['text'],
-    table: ['header', 'body'],
-    tablerow: ['content'],
-    tablecell: ['content', 'flags'],
-    strong: ['text'],
-    em: ['text'],
-    codespan: ['text'],
-    br: [],
-    del: ['text'],
-    link: ['href', 'title', 'text'],
-    image: ['href', 'title', 'text']
-  };
 
   private makeHandler = (type, args) => {
     return function () {

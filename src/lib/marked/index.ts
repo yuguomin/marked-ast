@@ -4,7 +4,7 @@ import Parser from './Parser';
 import Lexer from './Lexer';
 import { defaultOptions, IOptions } from './common/defaultOptions';
 
-class Marked {
+export default class Marked {
   constructor(src: string, opt: IOptions = {}, callback?) {
     this.src = src;
     this.opt = opt;
@@ -46,22 +46,6 @@ class Marked {
 
       if (!pending) { return this.done() };
 
-      // for (let i = 0; i < this.tokens.length; i++) {
-      //   ((token) => {
-      //     if (token.type !== 'code') {
-      //       return --pending || this.done();
-      //     }
-      //     return this.highlight(token.text, token.lang, (err, code) => {
-      //       if (err) return this.done(err);
-      //       if (code == null || code === token.text) {
-      //         return --pending || this.done();
-      //       }
-      //       token.text = code;
-      //       token.escaped = true;
-      //       --pending || this.done();
-      //     });
-      //   })(this.tokens[i]);
-      // }
       this.tokens.forEach((token) => {
           if (token.type !== 'code') {
             return --pending || this.done();
@@ -94,10 +78,10 @@ class Marked {
     }
   }
 
-  static setOptions = (opt) => {
-    merge(defaultOptions, opt);
-    return marked;
-  }
+  // static setOptions = (opt) => {
+  //   merge(defaultOptions, opt);
+  //   return MD2HTML;
+  // }
 
   private done = (err?) => {
     this.opt = null || {};
@@ -117,10 +101,3 @@ class Marked {
       : this.callback(null, out);
   };
 }
-
-
-const marked = (src, opt?, callback?) => {
-  return new Marked(src, opt, callback).marked();
-};
-
-export default marked;

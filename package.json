@@ -7,8 +7,7 @@
     "url": "https://github.com/yuguomin/marked-ast.git"
   },
   "scripts": {
-    "start": "ts-node ./examples",
-    "test": "ts-node ./test",
+    "start": "ts-node ./example",
     "dev": "tsc -w",
     "build": "rm -rf ./dist && tsc"
   },
@@ -16,10 +15,10 @@
   "author": "YGM",
   "license": "MIT",
   "dependencies": {
-    "marked": "0.3.3"
+    "entities": "^1.1.1",
+    "whisk": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.5.6",
-    "@types/marked": "^0.6.5"
+    "@types/node": "^10.5.6"
   }
 }

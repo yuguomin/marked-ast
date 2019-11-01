@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@types/marked@^0.6.5":
-  version "0.6.5"
-  resolved "https://registry.yarnpkg.com/@types/marked/-/marked-0.6.5.tgz#3cf2a56ef615dad24aaf99784ef90a9eba4e29d8"
-  integrity sha512-6kBKf64aVfx93UJrcyEZ+OBM5nGv4RLsI6sR1Ar34bpgvGVRoyTgpxn4ZmtxOM5aDTAaaznYuYUH8bUX3Nk3YA==
-
 "@types/node@^10.5.6":
-  version "10.14.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.22.tgz#34bcdf6b6cb5fc0db33d24816ad9d3ece22feea4"
-  integrity sha512-9taxKC944BqoTVjE+UT3pQH0nHZlTvITwfsOZqyc+R3sfJuxaTtxWjfn1K2UlxyPcKHf0rnaXcVFrS9F9vf0bw==
+  version "10.17.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.2.tgz#41b5afbcde1a5a805302a4da3cf399499f1bbf64"
+  integrity sha512-sAh60KDol+MpwOr1RTK0+HgBEYejKsxdpmrOS1Wts5bI03dLzq8F7T0sRXDKeaEK8iWDlGfdzxrzg6vx/c5pNA==
 
-marked@0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.3.tgz#08bad9cac13736f6cceddc202344f1b0bf255390"
-  integrity sha1-CLrZysE3NvbM7dwgI0TxsL8lU5A=
+entities@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
+  integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
+
+whisk@^1.0.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/whisk/-/whisk-1.4.0.tgz#c3fe50b0f585ba73d5915da477c6735c135e8811"
+  integrity sha512-uh4+hibHa+HxUTUwpP9iiAgyniVB4UBbI6QK2feiv1U9t6PSS32hl/xeAmf0RZhHKXVn3nnNQiju1RzBYVclCg==

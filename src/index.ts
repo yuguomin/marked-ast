@@ -1,33 +1,29 @@
 /** 
  * @description export
- * 1. markdown to AST
- * 2. markdown to HTML
+ * 1. MarkDown to AST
+ * 2. MarkDown to HTML
  * 3. AST to HTML
+ * 4. AST to MarkDown
  */
 
-import marked from './lib/marked';
+import { MD2HTML } from './MD2HTML';
 import { MD2AST } from './MD2AST';
 import { AST2HTML } from './AST2HTML';
+import { AST2MD } from './AST2MD';
 
 interface IMDTool {
   MD2AST: any;
   MD2HTML: (src: string, options?, callback?) => any;
   AST2HTML: any;
+  AST2MD: any;
 }
 
 
-export const MDTool: IMDTool = {
+const MDTool: IMDTool = {
   MD2AST,
-  MD2HTML: marked,
-  AST2HTML
+  MD2HTML,
+  AST2HTML,
+  AST2MD
 };
 
-const ast = MDTool.MD2AST(`
-#### detail
-
-| 类别 | 详情1 | 第三个 |
-| -- | ---- | --- |
-| request-method | GET | x |
-| request-url | /pb/card/list | s |`);
-
-console.log(MDTool.AST2HTML(ast));
+export default MDTool;

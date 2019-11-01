@@ -1,5 +1,5 @@
 ## what is this
-A modified version of pdubroy/marked-ast that can produce an abstract syntax tree for Markdown
+A Markdown Tool, support MarkDown to AST, MarkDown to HTML, AST to MarkDown, AST to HTML.
 
 ## install
 add this code in your project package.json/dependencies

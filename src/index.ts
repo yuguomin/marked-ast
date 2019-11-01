@@ -1,5 +1,5 @@
 /** 
- * @description export
+ * @description export MDTool
  * 1. MarkDown to AST
  * 2. MarkDown to HTML
  * 3. AST to HTML
@@ -17,7 +17,6 @@ interface IMDTool {
   AST2HTML: any;
   AST2MD: any;
 }
-
 
 const MDTool: IMDTool = {
   MD2AST,

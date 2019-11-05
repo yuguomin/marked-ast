@@ -1,3 +1,3 @@
-export default class regExpNoop {
-  static exec = regExpNoop;
-};
+export default class RegExpNoop {
+  public static exec = RegExpNoop;
+}

@@ -23,8 +23,8 @@ export default class Lexer {
 
   private block = getBlock();
 
-  static rules = getBlock();
-  static lex = (src, options) => {
+  public static rules = getBlock();
+  public static lex = (src, options) => {
     const lexer = new Lexer(options);
     return lexer.lex(src);
   }
@@ -37,7 +37,7 @@ export default class Lexer {
       .replace(/\u2424/g, '\n');
 
     return this.token(src, true);
-  };
+  }
 
   public token = (src, top, bq?) => {
     src = src.replace(/^ +$/gm, '');
@@ -224,7 +224,7 @@ export default class Lexer {
           loose = next || /\n\n(?!\s*$)/.test(item);
           if (i !== l - 1) {
             next = item.charAt(item.length - 1) === '\n';
-            if (!loose) loose = next;
+            if (!loose) { loose = next; }
           }
 
           this.tokens.push({

@@ -1,7 +1,7 @@
 const replace = (regex: RegExp, opt = '') => {
   let regexSource = regex.source;
   return function self(name?: RegExp | string, val?: RegExp | string) {
-    if (!name) return new RegExp(regexSource, opt);
+    if (!name) { return new RegExp(regexSource, opt); }
     if (typeof val === 'object') {
       val = val.source;
     }
@@ -9,6 +9,6 @@ const replace = (regex: RegExp, opt = '') => {
     regexSource = regexSource.replace(name, val);
     return self;
   };
-}
+};
 
 export default replace;

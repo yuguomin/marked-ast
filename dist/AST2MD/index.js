@@ -10,10 +10,10 @@ const lists_1 = require("./lists");
 exports.AST2MD = (ast) => ast.map(exports.writeNode).join('');
 exports.writeNode = (node, index, ast) => {
     const handler = generators[node.type];
-    if (typeof node == 'string' || (node instanceof String)) {
+    if (typeof node === 'string' || (node instanceof String)) {
         return entities_1.decodeHTML(node);
     }
-    return typeof handler == 'function' ? handler(node, index, ast) : '';
+    return typeof handler === 'function' ? handler(node, index, ast) : '';
 };
 const generators = {
     heading: (node, index, ast) => `${HEADERS[node.level]} ${toText(node.text, ' ')}${newLines(ast, index)}`,
@@ -33,7 +33,7 @@ const generators = {
         node.header.map(tables_1.writeTableHeaderLine).join(''),
         node.body.map(exports.writeNode).join('\n')
     ].join('\n') + newLines(ast, index)),
-    tablerow: (node) => `| ${node.content.map(exports.writeNode).join(' | ')} |`,
+    tablerow: (node) => node.content.length ? `| ${node.content.map(exports.writeNode).join(' | ')} |` : '',
     tablecell: (node) => toText(node.content),
 };
 const CODE_BLOCK = '```';

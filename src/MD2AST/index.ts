@@ -5,4 +5,4 @@ export const MD2AST = (text) => {
   return new Marked(text, {
     renderer: new AstBuilder() as any
   }).marked();
-}
+};

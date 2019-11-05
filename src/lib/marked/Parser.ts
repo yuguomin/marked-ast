@@ -7,13 +7,13 @@ export default class Parser {
     this.tokens = [];
     this.token = null;
     this.options = options || defaultOptions;
-    this.options.renderer = this.options.renderer || new Renderer;
+    this.options.renderer = this.options.renderer || new Renderer();
     this.options.renderer = this.options.renderer;
     this.renderer = this.options.renderer;
     this.renderer.options = this.options;
   }
 
-  static parse = (src, options, renderer?) => {
+  public static parse = (src, options, renderer?) => {
     const parser = new Parser(options, renderer);
     return parser.parse(src);
   }
@@ -75,12 +75,12 @@ export default class Parser {
           !!this.token.fenced);
       }
       case 'table': {
-        let header = this.renderer.newSequence()
+        let header = this.renderer.newSequence();
         let body = this.renderer.newSequence();
         // let i;
         let row;
         let cell;
-        let flags;
+        // let flags;
 
         // header
         cell = this.renderer.newSequence();
@@ -92,12 +92,12 @@ export default class Parser {
         //   ));
         // }
         this.token.header.forEach((value, index) => {
-          flags = { header: true, align: this.token.align[index] };
+          // flags = { header: true, align: this.token.align[index] };
           cell = cell.concat(this.renderer.tablecell(
             this.inline.output(value),
             { header: true, align: this.token.align[index] }
           ));
-        })
+        });
 
         header = header.concat(this.renderer.tablerow(cell));
 
@@ -111,7 +111,7 @@ export default class Parser {
             ));
           }
           body = body.concat(this.renderer.tablerow(cell));
-        })
+        });
         return this.renderer.table(header, body);
       }
       case 'blockquote_start': {
@@ -124,8 +124,8 @@ export default class Parser {
         return this.renderer.blockquote(body);
       }
       case 'list_start': {
-        let body = this.renderer.newSequence()
-          , ordered = this.token.ordered;
+        let body = this.renderer.newSequence();
+        const ordered = this.token.ordered;
 
         while (this.next().type !== 'list_end') {
           body = body.concat(this.tok());
@@ -154,7 +154,7 @@ export default class Parser {
         return this.renderer.listitem(body);
       }
       case 'html': {
-        let html = !this.token.pre && !this.options.pedantic
+        const html = !this.token.pre && !this.options.pedantic
           ? this.inline.output(this.token.text)
           : this.token.text;
         return this.renderer.html(html);

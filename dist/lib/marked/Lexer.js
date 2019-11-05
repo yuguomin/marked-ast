@@ -178,8 +178,9 @@ class Lexer {
                         loose = next || /\n\n(?!\s*$)/.test(item);
                         if (i !== l - 1) {
                             next = item.charAt(item.length - 1) === '\n';
-                            if (!loose)
+                            if (!loose) {
                                 loose = next;
+                            }
                         }
                         this.tokens.push({
                             type: loose

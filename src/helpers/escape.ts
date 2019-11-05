@@ -5,6 +5,6 @@ const escape = (html: string, isEncode?: boolean) => {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
-}
+};
 
 export default escape;

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class regExpNoop {
+class RegExpNoop {
 }
-exports.default = regExpNoop;
-regExpNoop.exec = regExpNoop;
-;
+exports.default = RegExpNoop;
+RegExpNoop.exec = RegExpNoop;

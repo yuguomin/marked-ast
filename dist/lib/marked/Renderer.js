@@ -8,7 +8,7 @@ class Renderer {
     constructor(options = {}) {
         this.code = (code, lang, escaped, fenced) => {
             if (this.options.highlight) {
-                let out = this.options.highlight(code, lang);
+                const out = this.options.highlight(code, lang);
                 if (out != null && out !== code) {
                     escaped = true;
                     code = out;
@@ -48,7 +48,7 @@ class Renderer {
             return this.options.xhtml ? '<hr/>\n' : '<hr>\n';
         };
         this.list = (body, ordered) => {
-            let type = ordered ? 'ol' : 'ul';
+            const type = ordered ? 'ol' : 'ul';
             return '<' + type + '>\n' + body + '</' + type + '>\n';
         };
         this.listitem = (text) => {
@@ -71,8 +71,8 @@ class Renderer {
             return '<tr>\n' + content + '</tr>\n';
         };
         this.tablecell = (content, flags) => {
-            let type = flags.header ? 'th' : 'td';
-            let tag = flags.align
+            const type = flags.header ? 'th' : 'td';
+            const tag = flags.align
                 ? '<' + type + ' style="text-align:' + flags.align + '">'
                 : '<' + type + '>';
             return tag + content + '</' + type + '>\n';

@@ -13,6 +13,6 @@ exports.defaultOptions = {
     langPrefix: 'lang-',
     smartypants: false,
     headerPrefix: '',
-    renderer: new Renderer_1.Renderer,
+    renderer: new Renderer_1.Renderer(),
     xhtml: false
 };

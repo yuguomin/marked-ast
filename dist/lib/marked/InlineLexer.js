@@ -139,7 +139,7 @@ class InlineLexer {
         };
         this.mangle = (text) => {
             let out = '';
-            let l = text.length;
+            const l = text.length;
             let ch;
             for (let i = 0; i < l; i++) {
                 ch = text.charCodeAt(i);
@@ -151,8 +151,9 @@ class InlineLexer {
             return out;
         };
         this.smartypants = (text) => {
-            if (!this.options.smartypants)
+            if (!this.options.smartypants) {
                 return text;
+            }
             return text
                 // em-dashes
                 .replace(/--/g, '\u2014')
@@ -170,7 +171,7 @@ class InlineLexer {
         this.options = options || defaultOptions_1.defaultOptions;
         this.links = links;
         this.rules = this.inline.normal;
-        this.renderer = this.options.renderer || new Renderer_1.Renderer;
+        this.renderer = this.options.renderer || new Renderer_1.Renderer();
         this.renderer.options = this.options;
         if (!this.links) {
             throw new Error('Tokens array requires a `links` property.');
@@ -189,7 +190,9 @@ class InlineLexer {
     }
 }
 exports.InlineLexer = InlineLexer;
+// @ts-ignore
 InlineLexer.rules = getInline_1.getInline();
+// @ts-ignore
 InlineLexer.output = (src, links, options) => {
     const inline = new InlineLexer(links, options);
     return inline.output(src);

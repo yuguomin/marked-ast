@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const replace = (regex, opt = '') => {
     let regexSource = regex.source;
     return function self(name, val) {
-        if (!name)
+        if (!name) {
             return new RegExp(regexSource, opt);
+        }
         if (typeof val === 'object') {
             val = val.source;
         }

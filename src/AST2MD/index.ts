@@ -6,10 +6,10 @@ import { genList } from './lists';
 export const AST2MD = (ast) => ast.map(writeNode).join('');
 export const writeNode = (node, index, ast) => {
   const handler = generators[node.type];
-  if (typeof node == 'string' || (node instanceof String)) {
+  if (typeof node === 'string' || (node instanceof String)) {
     return decodeHTML(node);
   }
-  return typeof handler == 'function' ? handler(node, index, ast) : '';
+  return typeof handler === 'function' ? handler(node, index, ast) : '';
 };
 
 const generators = {
@@ -31,7 +31,7 @@ const generators = {
     node.header.map(writeTableHeaderLine).join(''),
     node.body.map(writeNode).join('\n')
   ].join('\n') + newLines(ast, index)),
-  tablerow: (node) => `| ${node.content.map(writeNode).join(' | ')} |`,
+  tablerow: (node) => node.content.length ? `| ${node.content.map(writeNode).join(' | ')} |` : '',
   tablecell: (node) => toText(node.content),
 };
 

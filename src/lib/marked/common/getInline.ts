@@ -1,12 +1,11 @@
 import merge from '../../../helpers/merge';
 import replace from '../../../helpers/replace';
-import regExpNoop from './regExpNoop';
-
+import RegExpNoop from './RegExpNoop';
 
 interface IInline {
   escape: RegExp;
   autolink: RegExp;
-  url: regExpNoop;
+  url: RegExpNoop;
   tag: RegExp;
   link: RegExp;
   reflink: RegExp;
@@ -15,7 +14,7 @@ interface IInline {
   em: RegExp;
   code: RegExp;
   br: RegExp;
-  del: regExpNoop;
+  del: RegExpNoop;
   text: RegExp;
   _inside: RegExp | null;
   _href: RegExp | null;
@@ -23,7 +22,7 @@ interface IInline {
   pedantic: RegExp | null;
   gfm: RegExp | null;
   breaks: RegExp | null;
-};
+}
 
 /**
  * Inline-Level Grammar
@@ -32,7 +31,7 @@ export const getInline = () => {
   const inline: IInline = {
     escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
     autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
-    url: regExpNoop,
+    url: RegExpNoop,
     tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
     link: /^!?\[(inside)\]\(href\)/,
     reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
@@ -41,7 +40,7 @@ export const getInline = () => {
     em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
     code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
     br: /^ {2,}\n(?!\s*$)/,
-    del: regExpNoop,
+    del: RegExpNoop,
     text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/,
     _inside: null,
     _href: null,
@@ -107,4 +106,4 @@ export const getInline = () => {
   }]);
 
   return inline;
-}
+};

@@ -8,7 +8,7 @@ export class InlineLexer {
     this.options = options || defaultOptions;
     this.links = links;
     this.rules = this.inline.normal;
-    this.renderer = this.options.renderer || new Renderer;
+    this.renderer = this.options.renderer || new Renderer();
     this.renderer.options = this.options;
 
     if (!this.links) {
@@ -34,16 +34,16 @@ export class InlineLexer {
   private inLink;
 
   private inline = getInline();
-
-  static rules = getInline();
-
-  static output = (src, links, options) => {
+  // @ts-ignore
+  private static rules = getInline();
+  // @ts-ignore
+  private static output = (src, links, options) => {
     const inline = new InlineLexer(links, options);
     return inline.output(src);
   }
 
   public output = (src) => {
-    let out = this.renderer.newSequence()
+    let out = this.renderer.newSequence();
     let link;
     let text;
     let href;
@@ -176,8 +176,8 @@ export class InlineLexer {
     return out;
   }
 
-  outputLink = (cap, link) => {
-    const href = escape(link.href)
+  private outputLink = (cap, link) => {
+    const href = escape(link.href);
     const title = link.title ? escape(link.title) : null;
 
     return cap[0].charAt(0) !== '!'
@@ -187,7 +187,7 @@ export class InlineLexer {
 
   public mangle = (text) => {
     let out = '';
-    let l = text.length;
+    const l = text.length;
     let ch;
 
     for (let i = 0; i < l; i++) {
@@ -201,7 +201,7 @@ export class InlineLexer {
   }
 
   public smartypants = (text) => {
-    if (!this.options.smartypants) return text;
+    if (!this.options.smartypants) { return text; }
     return text
       // em-dashes
       .replace(/--/g, '\u2014')

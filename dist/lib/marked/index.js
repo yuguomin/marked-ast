@@ -19,7 +19,7 @@ class Marked {
                 this.opt = merge_1.default({}, [defaultOptions_1.defaultOptions, this.opt || {}]);
                 this.opt = this.opt || {};
                 this.highlight = this.opt.highlight;
-                this.tokens;
+                // this.tokens;
                 try {
                     this.tokens = Lexer_1.default.lex(this.src, this.opt);
                 }
@@ -34,20 +34,22 @@ class Marked {
                 if (!pending) {
                     return this.done();
                 }
-                ;
                 this.tokens.forEach((token) => {
                     if (token.type !== 'code') {
                         return --pending || this.done();
                     }
                     return this.highlight(token.text, token.lang, (err, code) => {
-                        if (err)
+                        if (err) {
                             return this.done(err);
+                        }
                         if (code == null || code === token.text) {
                             return --pending || this.done();
                         }
                         token.text = code;
                         token.escaped = true;
-                        --pending || this.done();
+                        if (!(--pending)) {
+                            this.done();
+                        }
                     });
                 });
                 return;
@@ -56,7 +58,6 @@ class Marked {
                 if (this.opt) {
                     this.opt = merge_1.default({}, [defaultOptions_1.defaultOptions, this.opt]);
                 }
-                ;
                 return Parser_1.default.parse(Lexer_1.default.lex(this.src, this.opt), this.opt);
             }
             catch (e) {

@@ -28,10 +28,10 @@ export default class Marked {
       this.opt = this.opt || {};
 
       this.highlight = this.opt.highlight;
-      this.tokens;
+      // this.tokens;
 
       try {
-        this.tokens = Lexer.lex(this.src, this.opt)
+        this.tokens = Lexer.lex(this.src, this.opt);
       } catch (e) {
         return this.callback(e);
       }
@@ -44,28 +44,28 @@ export default class Marked {
 
       delete this.opt.highlight;
 
-      if (!pending) { return this.done() };
+      if (!pending) { return this.done(); }
 
       this.tokens.forEach((token) => {
-          if (token.type !== 'code') {
+        if (token.type !== 'code') {
+          return --pending || this.done();
+        }
+        return this.highlight(token.text, token.lang, (err, code) => {
+          if (err) { return this.done(err); }
+          if (code == null || code === token.text) {
             return --pending || this.done();
           }
-          return this.highlight(token.text, token.lang, (err, code) => {
-            if (err) return this.done(err);
-            if (code == null || code === token.text) {
-              return --pending || this.done();
-            }
-            token.text = code;
-            token.escaped = true;
-            --pending || this.done();
-          });
-        }
+          token.text = code;
+          token.escaped = true;
+          if (!(--pending)) { this.done(); }
+        });
+      }
       );
 
       return;
     }
     try {
-      if (this.opt) { this.opt = merge({}, [defaultOptions, this.opt]) };
+      if (this.opt) { this.opt = merge({}, [defaultOptions, this.opt]); }
       return Parser.parse(Lexer.lex(this.src, this.opt), this.opt);
     } catch (e) {
       e.message += '\nPlease report this to www';
@@ -99,5 +99,5 @@ export default class Marked {
     return err
       ? this.callback(err)
       : this.callback(null, out);
-  };
+  }
 }

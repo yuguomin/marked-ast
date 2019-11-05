@@ -9,7 +9,7 @@ export class Renderer {
 
   public code = (code, lang, escaped, fenced) => {
     if (this.options.highlight) {
-      let out = this.options.highlight(code, lang);
+      const out = this.options.highlight(code, lang);
       if (out != null && out !== code) {
         escaped = true;
         code = out;
@@ -36,7 +36,7 @@ export class Renderer {
 
   public html = (html) => {
     return html;
-  };
+  }
 
   public heading = (text, level, raw) => {
     return '<h'
@@ -49,24 +49,24 @@ export class Renderer {
       + '</h'
       + level
       + '>\n';
-  };
+  }
 
   public hr = () => {
     return this.options.xhtml ? '<hr/>\n' : '<hr>\n';
-  };
+  }
 
   public list = (body, ordered) => {
-    let type = ordered ? 'ol' : 'ul';
+    const type = ordered ? 'ol' : 'ul';
     return '<' + type + '>\n' + body + '</' + type + '>\n';
-  };
+  }
 
   public listitem = (text) => {
     return '<li>' + text + '</li>\n';
-  };
+  }
 
   public paragraph = (text) => {
     return '<p>' + text + '</p>\n';
-  };
+  }
 
   public table = (header, body) => {
     return '<table>\n'
@@ -77,40 +77,40 @@ export class Renderer {
       + body
       + '</tbody>\n'
       + '</table>\n';
-  };
+  }
 
   public tablerow = (content) => {
     return '<tr>\n' + content + '</tr>\n';
-  };
+  }
 
   public tablecell = (content, flags) => {
-    let type = flags.header ? 'th' : 'td';
-    let tag = flags.align
+    const type = flags.header ? 'th' : 'td';
+    const tag = flags.align
       ? '<' + type + ' style="text-align:' + flags.align + '">'
       : '<' + type + '>';
     return tag + content + '</' + type + '>\n';
-  };
+  }
 
   // span level renderer
   public strong = (text) => {
     return '<strong>' + text + '</strong>';
-  };
+  }
 
   public em = (text) => {
     return '<em>' + text + '</em>';
-  };
+  }
 
   public codespan = (text) => {
     return '<code>' + text + '</code>';
-  };
+  }
 
   public br = () => {
     return this.options.xhtml ? '<br/>' : '<br>';
-  };
+  }
 
   public del = (text) => {
     return '<del>' + text + '</del>';
-  };
+  }
 
   public link = (href, title, text) => {
     if (this.options.sanitize) {
@@ -132,7 +132,7 @@ export class Renderer {
     }
     out = out.concat('>' + text + '</a>');
     return out;
-  };
+  }
 
   public image = (href, title, text) => {
     let out = '<img src="' + href + '" alt="' + text + '"';
@@ -145,5 +145,5 @@ export class Renderer {
 
   public newSequence = () => {
     return '';
-  };
+  }
 }

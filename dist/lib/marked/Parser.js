@@ -47,7 +47,7 @@ class Parser {
                     // let i;
                     let row;
                     let cell;
-                    let flags;
+                    // let flags;
                     // header
                     cell = this.renderer.newSequence();
                     // for (i = 0; i < this.token.header.length; i++) {
@@ -58,7 +58,7 @@ class Parser {
                     //   ));
                     // }
                     this.token.header.forEach((value, index) => {
-                        flags = { header: true, align: this.token.align[index] };
+                        // flags = { header: true, align: this.token.align[index] };
                         cell = cell.concat(this.renderer.tablecell(this.inline.output(value), { header: true, align: this.token.align[index] }));
                     });
                     header = header.concat(this.renderer.tablerow(cell));
@@ -80,7 +80,8 @@ class Parser {
                     return this.renderer.blockquote(body);
                 }
                 case 'list_start': {
-                    let body = this.renderer.newSequence(), ordered = this.token.ordered;
+                    let body = this.renderer.newSequence();
+                    const ordered = this.token.ordered;
                     while (this.next().type !== 'list_end') {
                         body = body.concat(this.tok());
                     }
@@ -103,7 +104,7 @@ class Parser {
                     return this.renderer.listitem(body);
                 }
                 case 'html': {
-                    let html = !this.token.pre && !this.options.pedantic
+                    const html = !this.token.pre && !this.options.pedantic
                         ? this.inline.output(this.token.text)
                         : this.token.text;
                     return this.renderer.html(html);
@@ -119,7 +120,7 @@ class Parser {
         this.tokens = [];
         this.token = null;
         this.options = options || defaultOptions_1.defaultOptions;
-        this.options.renderer = this.options.renderer || new Renderer_1.Renderer;
+        this.options.renderer = this.options.renderer || new Renderer_1.Renderer();
         this.options.renderer = this.options.renderer;
         this.renderer = this.options.renderer;
         this.renderer.options = this.options;

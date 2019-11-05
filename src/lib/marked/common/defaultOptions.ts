@@ -28,6 +28,6 @@ export const defaultOptions: IOptions = {
   langPrefix: 'lang-',
   smartypants: false,
   headerPrefix: '',
-  renderer: new Renderer,
+  renderer: new Renderer(),
   xhtml: false
-}
+};

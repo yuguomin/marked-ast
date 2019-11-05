@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const regExpNoop_1 = __importDefault(require("./regExpNoop"));
+const RegExpNoop_1 = __importDefault(require("./RegExpNoop"));
 const merge_1 = __importDefault(require("../../../helpers/merge"));
 const replace_1 = __importDefault(require("../../../helpers/replace"));
 exports.getBlock = () => {
@@ -13,16 +13,16 @@ exports.getBlock = () => {
     const block = {
         newline: /^\n+/,
         code: /^( {4}[^\n]+\n*)+/,
-        fences: regExpNoop_1.default,
+        fences: RegExpNoop_1.default,
         hr: /^( *[-*_]){3,} *(?:\n+|$)/,
         heading: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,
-        nptable: regExpNoop_1.default,
+        nptable: RegExpNoop_1.default,
         lheading: /^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,
         blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
         list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
         html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
         def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
-        table: regExpNoop_1.default,
+        table: RegExpNoop_1.default,
         paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,
         text: /^[^\n]+/,
         bullet: null,

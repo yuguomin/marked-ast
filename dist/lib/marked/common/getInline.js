@@ -5,8 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const merge_1 = __importDefault(require("../../../helpers/merge"));
 const replace_1 = __importDefault(require("../../../helpers/replace"));
-const regExpNoop_1 = __importDefault(require("./regExpNoop"));
-;
+const RegExpNoop_1 = __importDefault(require("./RegExpNoop"));
 /**
  * Inline-Level Grammar
  */
@@ -14,7 +13,7 @@ exports.getInline = () => {
     const inline = {
         escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
         autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
-        url: regExpNoop_1.default,
+        url: RegExpNoop_1.default,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
@@ -23,7 +22,7 @@ exports.getInline = () => {
         em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
         code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
         br: /^ {2,}\n(?!\s*$)/,
-        del: regExpNoop_1.default,
+        del: RegExpNoop_1.default,
         text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/,
         _inside: null,
         _href: null,

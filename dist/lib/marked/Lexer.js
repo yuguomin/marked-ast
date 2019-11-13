@@ -226,7 +226,8 @@ class Lexer {
                         type: 'table',
                         header: cap[1].replace(/^ *| *\| *$/g, '').split(/ *\| */),
                         align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
-                        cells: cap[3].replace(/(?: *\| *)?\n$/, '').split('\n')
+                        // cells: cap[3].replace(/(?: *\| *)?\n$/, '').split('\n')
+                        cells: cap[3].replace(/\n$/, '').split('\n')
                     };
                     for (i = 0; i < item.align.length; i++) {
                         if (/^ *-+: *$/.test(item.align[i])) {
